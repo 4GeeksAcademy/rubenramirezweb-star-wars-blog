@@ -9,9 +9,7 @@ export const Navbar = () => {
 	const deleteName = (id) => {
 		
 		try {
-
 			 dispatch({ type: 'delete_favorite', payload: { id } });
-
 		} catch (error) {
 			
 		}
@@ -39,7 +37,7 @@ export const Navbar = () => {
 								{store.favorites.length > 0 ? (
 									store.favorites.map((fav, index) => (
 										<li key={index} className="dropdown-item d-flex justify-content-between align-items-center">
-											<Link to={`/details/${fav.uid}`}>
+											<Link to={`/details/${fav.type}/${fav.uid}`}>
 											{fav.name}
 											</Link>
 											<i className="fas fa-trash-alt text-danger ms-2" style={{ cursor: "pointer" }} onClick={() => deleteName(fav.uid)}></i>

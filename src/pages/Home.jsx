@@ -55,21 +55,20 @@ export const Home = () => {
 
 	return (
 		<div className="container">
-			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-x-auto">
+			<h2 className="mx-5 mt-5 text-danger">Characters</h2>
+			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-auto overflow-scroll">
 				{store.people.map((item, index) => {
 
 					return <PeopleCard key={item.uid} item={item} />
 
-
-
 				})}
 			</div>
+			
+			<h2 className="mx-5 mt-5 text-danger">Vehicles</h2>
 			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-x-auto">
 				{store.vehicles.map((item, index) => {
 
 					return <VehiclesCard key={item.uid} item={item} />
-
-
 
 				})}
 			</div>

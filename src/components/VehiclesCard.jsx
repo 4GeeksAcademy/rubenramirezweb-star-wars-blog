@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useGlobalReducer from '../hooks/useGlobalReducer';
 import { Link } from 'react-router-dom';
 
 const VehiclesCard = ({ item }) => {
 
     const { dispatch } = useGlobalReducer();
+    const [isFavorite, setIsFavorite] = useState(false);
 
-    const addToFavorites = (id, name) => {
-    
-        dispatch({ type: 'add_to_favorite', payload: { "uid": id, "name": name } })
+    const addToFavorites = (event, id, name) => {
+        setIsFavorite(!isFavorite);
+        const clicFavorite = event.type === 'click'
+
+        if (clicFavorite && !isFavorite) {
+            dispatch({ type: 'add_to_favorite', payload: { "uid": id, "name": name, type: 'vehicles' } });
+            setIsFavorite(true);
+        } else if (clicFavorite && isFavorite) {
+            dispatch({ type: 'delete_favorite', payload: { id } });
+            setIsFavorite(false);
+        } 
     };
 
     return (
@@ -27,7 +36,7 @@ const VehiclesCard = ({ item }) => {
                     Eye-Color: blue
                 </span><br />
                 <div className="my-4 d-flex justify-content-between">
-                    <Link to={`/details/${item.uid}`}>
+                    <Link to={`/details/vehicles/${item.uid}`}>
                         <button
                             type="button"
                             className="btn btn-outline-primary"
@@ -36,9 +45,11 @@ const VehiclesCard = ({ item }) => {
                     </Link>
 
                     <a href="#" className="btn btn-outline-warning">
-                        <i className="fa-regular fa-heart" onClick={() => {
-                            addToFavorites(item.uid, item.name);
-                        }}></i>
+                        <i
+                            className={isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}
+                            onClick={(event) => {
+                                addToFavorites(event,item.uid, item.name);
+                            }}></i>
                     </a>
                 </div>
             </div>

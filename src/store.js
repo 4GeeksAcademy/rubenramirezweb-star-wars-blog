@@ -19,10 +19,10 @@ export default function storeReducer(store, action = {}) {
         people: [...action.payload]
       }
     case 'add_to_favorite':
-      const { uid, name } = action.payload;
+      const { uid, name, type } = action.payload;
       return {
         ...store,
-        favorites: [...store.favorites, { uid: uid, name: name }]
+        favorites: [...store.favorites, { uid: uid, name: name, type: type }]
       }
     case 'delete_favorite':
       const { id }  = action.payload;
