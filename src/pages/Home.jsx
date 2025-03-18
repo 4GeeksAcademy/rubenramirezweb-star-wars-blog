@@ -55,8 +55,8 @@ export const Home = () => {
 
 	return (
 		<div className="container">
-			<h2 className="mx-5 mt-5 text-danger">Characters</h2>
-			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-auto overflow-scroll">
+			<h2 className="mx-5 mt-5 text-light">Characters</h2>
+			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 custom-scrollbar">
 				{store.people.map((item, index) => {
 
 					return <PeopleCard key={item.uid} item={item} />
@@ -64,7 +64,7 @@ export const Home = () => {
 				})}
 			</div>
 			
-			<h2 className="mx-5 mt-5 text-danger">Vehicles</h2>
+			<h2 className="mx-5 mt-5 text-light">Vehicles</h2>
 			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-x-auto">
 				{store.vehicles.map((item, index) => {
 

@@ -4,28 +4,30 @@ import { Link } from 'react-router-dom';
 
 const PeopleCard = ({ item }) => {
 
-    const { dispatch } = useGlobalReducer();
-    const [isFavorite, setIsFavorite] = useState(false)
+    const { store, dispatch } = useGlobalReducer();
+    
+    const isFavorite = (name) => {
+        return store.favorites.find(favorite => favorite.name == name)
+    };
 
-    const addToFavorites = (event, id, name) => {
-        setIsFavorite(!isFavorite);
-        console.log(isFavorite)
-        console.log(event.type)
-        const clicFavorite = event.type === 'click';
-        if (clicFavorite && !isFavorite) {
-            dispatch({ type: 'add_to_favorite', payload: { "uid": id, "name": name, type: 'people' } });
-            setIsFavorite(true);
-        } else if (clicFavorite && isFavorite) {
+    const addToFavorites = (id, name) => {
+        
+        
+        if (isFavorite(name)) {
             dispatch({ type: 'delete_favorite', payload: { id } });
-            setIsFavorite(false);
+            
+        } else {
+            dispatch({ type: 'add_to_favorite', payload: { "uid": id, "name": name, type: 'people' } });
+            
         }
     };
 
+   
 
     return (
         <div>
             <div className="card mb-4" style={{ minWidth: "350px", minHeight: "400px" }}>
-                <img src="https://picsum.photos/400/200" className="card-img-top" alt="People card" />
+                <img src={`https://vieraboschkova.github.io/swapi-gallery/static/assets/img/people/${item.uid}.jpg`} className="card-img-top" alt="People card" />
                 <div className="card-body text-start">
                     <h4 className="card-title">{item.name}</h4>
                     <span className="card-text">
@@ -48,9 +50,9 @@ const PeopleCard = ({ item }) => {
 
                         <a href="#" className="btn btn-outline-warning">
                             <i
-                                className={isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}
-                                onClick={(event) => {
-                                    addToFavorites(event, item.uid, item.name);
+                                className={`fa-${isFavorite(item.name) ? "solid" : "regular"} fa-heart`}
+                                onClick={() => {
+                                    addToFavorites(item.uid, item.name);
                                 }}></i>
                         </a>
                     </div>
