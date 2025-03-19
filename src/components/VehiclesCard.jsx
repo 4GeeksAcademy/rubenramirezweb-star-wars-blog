@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useGlobalReducer from '../hooks/useGlobalReducer';
 import { Link } from 'react-router-dom';
 
-const VehiclesCard = ({ item }) => {
+const VehiclesCard = ({ item, index }) => {
 
     const { dispatch } = useGlobalReducer();
     const [isFavorite, setIsFavorite] = useState(false);
@@ -22,8 +22,8 @@ const VehiclesCard = ({ item }) => {
 
     return (
 
-        <div className="card mb-4" style={{ minWidth: "350px", minHeight: "400px" }}>
-            <img src="https://picsum.photos/400/200" className="card-img-top" alt="People card" />
+        <div className="card mb-4 d-flex flex-column justify-content-between" style={{ minWidth: "350px", minHeight: "400px" }}>
+            <img src={item.image} className="card-img-top h-100" alt="People card" />
             <div className="card-body text-start">
                 <h4 className="card-title">{item.name}</h4>
                 <span className="card-text">
@@ -36,7 +36,7 @@ const VehiclesCard = ({ item }) => {
                     Eye-Color: blue
                 </span><br />
                 <div className="my-4 d-flex justify-content-between">
-                    <Link to={`/details/vehicles/${item.uid}`}>
+                    <Link to={`/details/vehicles/${index}`}>
                         <button
                             type="button"
                             className="btn btn-outline-primary"

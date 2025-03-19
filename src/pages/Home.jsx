@@ -32,14 +32,21 @@ export const Home = () => {
 
 		try {
 			const response = await fetch('https://www.swapi.tech/api/vehicles');
+			const response2 = await fetch('https://starwars-databank-server.vercel.app/api/v1/vehicles');
 
-			if (!response.ok) {
+			if (!response.ok || !response2.ok) {
 				throw new Error("Ocurrió un error al llamar el endpoint 'Vehicles' ");
 			}
 
 			const data = await response.json();
+			const data2 = await response2.json();
 
-			dispatch({ type: 'set_vehicles_data', payload: data.results })
+			const vehicles = data.results.map((vehicle, index) => {
+				vehicle.image = data2.data[index].image
+				return vehicle
+			});
+
+			dispatch({ type: 'set_vehicles_data', payload: vehicles })
 
 
 		} catch (error) {
@@ -56,7 +63,7 @@ export const Home = () => {
 	return (
 		<div className="container">
 			<h2 className="mx-5 mt-5 text-light">Characters</h2>
-			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 custom-scrollbar">
+			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-x-auto">
 				{store.people.map((item, index) => {
 
 					return <PeopleCard key={item.uid} item={item} />
@@ -68,7 +75,7 @@ export const Home = () => {
 			<div className="text-center mt-5 d-flex flex-row gap-3 mx-5 my-5 overflow-x-auto">
 				{store.vehicles.map((item, index) => {
 
-					return <VehiclesCard key={item.uid} item={item} />
+					return <VehiclesCard key={item.uid} item={item} index={index} />
 
 				})}
 			</div>

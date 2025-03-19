@@ -12,7 +12,6 @@ const PeopleCard = ({ item }) => {
 
     const addToFavorites = (id, name) => {
         
-        
         if (isFavorite(name)) {
             dispatch({ type: 'delete_favorite', payload: { id } });
             
@@ -25,7 +24,7 @@ const PeopleCard = ({ item }) => {
    
 
     return (
-        <div>
+        
             <div className="card mb-4" style={{ minWidth: "350px", minHeight: "400px" }}>
                 <img src={`https://vieraboschkova.github.io/swapi-gallery/static/assets/img/people/${item.uid}.jpg`} className="card-img-top" alt="People card" />
                 <div className="card-body text-start">
@@ -58,7 +57,7 @@ const PeopleCard = ({ item }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        
 
     )
 }
